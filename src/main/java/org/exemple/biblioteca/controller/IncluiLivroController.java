@@ -27,8 +27,6 @@ public class IncluiLivroController {
     @FXML
     private Button btnConf;
     @FXML
-    private Button btnExcluir;
-    @FXML
     private TableView<Livro> tabelaLivros;
     @FXML
     private TableColumn<Livro, Integer> colunaLivroID;
