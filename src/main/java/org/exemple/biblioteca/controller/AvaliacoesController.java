@@ -28,10 +28,6 @@ public class AvaliacoesController {
     @FXML
     private Button btnConf;
     @FXML
-    private Button btnExcluir;
-    @FXML
-    private Button btnAtualizar;
-    @FXML
     private TableView<Avaliacao> tabelaAvaliacoes;
     @FXML
     private TableColumn<Avaliacao, String> colunaNomeUsuario;
