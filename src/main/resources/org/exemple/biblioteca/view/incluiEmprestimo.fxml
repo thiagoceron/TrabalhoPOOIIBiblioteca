@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="org.exemple.biblioteca.controller.IncluiEmprestimoController" spacing="10" prefWidth="400.0">
+    <Label text="Incluir Empréstimo"/>
+
+    <Label text="ID do Usuário:"/>
+    <TextField fx:id="txtUsuarioID" promptText="Digite o ID do usuário"/>
+
+    <Label text="ID do Livro:"/>
+    <TextField fx:id="txtLivroID" promptText="Digite o ID do livro"/>
+
+    <Label text="Data de Empréstimo:"/>
+    <TextField fx:id="txtDataEmprestimo" promptText="Digite a data (YYYY-MM-DD)"/>
+
+    <Label text="Data de Devolução:"/>
+    <TextField fx:id="txtDataDevolucao" promptText="Digite a data (YYYY-MM-DD)"/>
+
+    <Button fx:id="btnConf" onAction="#btnConfOnAction" text="Confirmar" />
+    <Button onAction="#btnVoltarOnAction" text="Voltar" />
+    <Button fx:id="btnExcluir" onAction="#btnExcluirOnAction" text="Excluir" />
+
+
+    <TableView fx:id="tabelaEmprestimos" prefHeight="200.0" prefWidth="400.0">
+        <columns>
+            <TableColumn fx:id="colunaUsuarioID" text="ID do Usuário" prefWidth="100"/>
+            <TableColumn fx:id="colunaUsuario" text="Usuário" prefWidth="150"/>
+            <TableColumn fx:id="colunaLivroID" text="ID do Livro" prefWidth="100"/>
+            <TableColumn fx:id="colunaLivro" text="Livro" prefWidth="150"/>
+            <TableColumn fx:id="colunaDataEmprestimo" text="Data de Empréstimo" prefWidth="100"/>
+            <TableColumn fx:id="colunaDataDevolucao" text="Data de Devolução" prefWidth="100"/>
+        </columns>
+    </TableView>
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+</VBox>

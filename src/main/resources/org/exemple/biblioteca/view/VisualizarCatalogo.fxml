@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="org.exemple.biblioteca.controller.VisualizarCatalogoController" spacing="10" prefWidth="400.0">
+    <Label text="Catálogo de Livros"/>
+    <Button text="Voltar" onAction="#handleVoltar" />
+
+    <TableView fx:id="tabelaLivros" prefHeight="300.0" prefWidth="400.0">
+        <columns>
+            <TableColumn fx:id="colunaLivroID" text="ID" prefWidth="100"/>
+            <TableColumn fx:id="colunaTitulo" text="Título" prefWidth="150"/>
+            <TableColumn fx:id="colunaAutor" text="Autor" prefWidth="150"/>
+        </columns>
+    </TableView>
+
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+</VBox>

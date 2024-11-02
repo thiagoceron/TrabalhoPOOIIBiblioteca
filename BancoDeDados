@@ -1,0 +1,37 @@
+CREATE TABLE usuario (
+    usuarioID serial PRIMARY KEY NOT NULL,
+    nome VARCHAR(60) NOT NULL
+);
+
+CREATE TABLE livro (
+    livroID serial PRIMARY KEY NOT NULL,
+    titulo VARCHAR(100) NOT NULL,
+    autor VARCHAR(60) NOT NULL
+);
+
+INSERT INTO livro (titulo, autor) VALUES
+('Dom Casmurro', 'Machado de Assis'),
+('O Guarani', 'José de Alencar'),
+('Memórias Póstumas de Brás Cubas', 'Machado de Assis'),
+('A Moreninha', 'Joaquim Manuel de Macedo'),
+('O Cortiço', 'Aluísio Azevedo'),
+('A Hora da Estrela', 'Clarice Lispector'),
+('Grande Sertão: Veredas', 'Guimarães Rosa'),
+('Capitães da Areia', 'Jorge Amado'),
+('O Tempo e o Vento', 'Érico Veríssimo'),
+('Iracema', 'José de Alencar');
+
+CREATE TABLE emprestimo (
+    emprestimoID serial PRIMARY KEY NOT NULL,
+    usuarioID INT REFERENCES usuario(usuarioID),
+    livroID INT REFERENCES livro(livroID),
+    data_emprestimo DATE NOT NULL,
+    data_devolucao DATE
+);
+
+CREATE TABLE avaliacao (
+    avaliacaoID SERIAL PRIMARY KEY,
+    nomeusuario VARCHAR(255) NOT NULL,
+    livroTitulo VARCHAR(255) NOT NULL,
+    texto TEXT NOT NULL
+);

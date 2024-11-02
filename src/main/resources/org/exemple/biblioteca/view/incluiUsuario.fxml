@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<?import javafx.scene.control.ScrollPane?>
+
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="org.exemple.biblioteca.controller.IncluiUsuarioController" prefHeight="400.0" prefWidth="400.0" spacing="10">
+    <Label text="Incluir Usuário"/>
+    <TextField fx:id="txtNomeUsuario" promptText="Nome do Usuário"/>
+    <Button fx:id="btnConf" onAction="#btnConfOnAction" text="Confirmar" />
+    <Button onAction="#btnVoltarOnAction" text="Voltar" />
+    <Button fx:id="btnExcluir" onAction="#btnExcluirOnAction" text="Excluir" />
+    <Button fx:id="btnAtualizar" onAction="#btnAtualizarOnAction" text="Atualizar" />
+
+    <ScrollPane fitToWidth="true">
+        <content>
+            <TableView fx:id="tabelaUsuarios" prefHeight="200.0" prefWidth="400.0">
+                <columns>
+                    <TableColumn fx:id="colunaUsuarioID" text="ID" />
+                    <TableColumn fx:id="colunaNome" text="Nome" />
+                </columns>
+            </TableView>
+        </content>
+    </ScrollPane>
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+</VBox>

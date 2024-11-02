@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="org.exemple.biblioteca.controller.AvaliacoesController" prefHeight="400.0" prefWidth="400.0" spacing="10">
+    <Label text="Incluir Avaliação"/>
+    <TextField fx:id="txtNomeUsuario" promptText="Nome do Usuário"/> <!-- Novo campo para o nome do usuário -->
+    <TextField fx:id="txtLivroTitulo" promptText="Título do Livro"/>
+    <TextField fx:id="txtTexto" promptText="Texto da Avaliação"/>
+    <Button fx:id="btnConf" onAction="#btnConfOnAction" text="Confirmar"/>
+    <Button onAction="#btnVoltarOnAction" text="Voltar"/>
+    <Button fx:id="btnExcluir" onAction="#btnExcluirOnAction" text="Excluir"/>
+    <Button fx:id="btnAtualizar" onAction="#btnAtualizarOnAction" text="Atualizar"/>
+
+    <ScrollPane fitToWidth="true">
+        <content>
+            <TableView fx:id="tabelaAvaliacoes" prefHeight="200.0" prefWidth="400.0">
+                <columns>
+                    <TableColumn fx:id="colunaNomeUsuario" text="Nome do Usuário"/> <!-- Nova coluna para o nome do usuário -->
+                    <TableColumn fx:id="colunaLivroTitulo" text="Título do Livro" />
+                    <TableColumn fx:id="colunaTexto" text="Texto da Avaliação"/>
+                </columns>
+            </TableView>
+        </content>
+    </ScrollPane>
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+</VBox>
