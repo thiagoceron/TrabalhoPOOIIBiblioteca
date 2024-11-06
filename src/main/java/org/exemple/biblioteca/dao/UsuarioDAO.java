@@ -48,23 +48,7 @@ public class UsuarioDAO implements IUsuario { // Implementa a interface IUsuario
         }
     }
 
-    public List<Usuario> searchByName(String searchTerm) throws SQLException { // Método para buscar usuários pelo nome.
-        List<Usuario> usuarios = new ArrayList<>(); // Lista para armazenar os resultados.
-        String sql = "SELECT * FROM usuario WHERE nome ILIKE ?"; // Declaração SQL para busca com filtro.
 
-        try (Connection conexao = DriverManager.getConnection(URL, USER, PASSWORD); // Conecta ao banco.
-             PreparedStatement pstmt = conexao.prepareStatement(sql)) { // Prepara a declaração.
-            pstmt.setString(1, "%" + searchTerm + "%"); // Define o parâmetro com o termo de busca.
-            ResultSet rs = pstmt.executeQuery(); // Executa a consulta.
-            while (rs.next()) { // Itera sobre os resultados.
-                Usuario usuario = new Usuario(); // Cria um objeto Usuario.
-                usuario.setUsuarioID(rs.getInt("usuarioID")); // Define o ID do usuário.
-                usuario.setNome(rs.getString("nome")); // Define o nome do usuário.
-                usuarios.add(usuario); // Adiciona o usuário à lista.
-            }
-        }
-        return usuarios; // Retorna a lista de usuários filtrados.
-    }
 
     public boolean usuarioExiste(int usuarioID) throws SQLException { // Método para verificar se o usuário existe.
         String sql = "SELECT COUNT(*) FROM usuario WHERE usuarioID = ?"; // Declaração SQL de contagem.
