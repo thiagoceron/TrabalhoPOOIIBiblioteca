@@ -62,17 +62,21 @@ public class LivroDAO implements ILivro { // Implementa a interface ILivro para 
     }
 
     public int obterProximoLivroID() throws SQLException {
+        // Define a instrução SQL para obter o próximo ID de livro, utilizando COALESCE para lidar com a ausência de registros
         String sql = "SELECT COALESCE(MAX(livroID), 0) + 1 AS proximo_id FROM livro";
 
-        try (Connection conexao = criarConexao();
-             Statement stmt = conexao.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+        // Tenta estabelecer uma conexão com o banco de dados e executar a consulta
+        try (Connection conexao = criarConexao(); // Método para criar a conexão com o banco de dados
+             Statement stmt = conexao.createStatement(); // Cria um Statement para executar a consulta
+             ResultSet rs = stmt.executeQuery(sql)) { // Executa a consulta e obtém o ResultSet
 
-            return rs.next() ? rs.getInt("proximo_id") : 1; // Retorna o próximo ID ou 1 se não houver livros.
+            // Retorna o próximo ID de livro, ou 1 se não houver livros na tabela
+            return rs.next() ? rs.getInt("proximo_id") : 1;
         }
     }
 
     private Connection criarConexao() throws SQLException {
+        // Cria e retorna uma nova conexão com o banco de dados usando as credenciais fornecidas
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }
