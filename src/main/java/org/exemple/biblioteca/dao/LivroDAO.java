@@ -61,15 +61,18 @@ public class LivroDAO implements ILivro { // Implementa a interface ILivro para 
         }
     }
 
-    public int obterProximoLivroID() throws SQLException { // Método para obter o próximo ID disponível.
-        String sql = "SELECT COALESCE(MAX(livroID), 0) + 1 AS proximo_id FROM livro"; // Declaração SQL para próximo ID.
-        try (Connection conexao = DriverManager.getConnection(URL, USER, PASSWORD); // Conecta ao banco.
-             Statement stmt = conexao.createStatement(); // Cria uma declaração de consulta.
-             ResultSet rs = stmt.executeQuery(sql)) { // Executa a consulta.
-            if (rs.next()) { // Verifica o resultado.
-                return rs.getInt("proximo_id"); // Retorna o próximo ID.
-            }
+    public int obterProximoLivroID() throws SQLException {
+        String sql = "SELECT COALESCE(MAX(livroID), 0) + 1 AS proximo_id FROM livro";
+
+        try (Connection conexao = criarConexao();
+             Statement stmt = conexao.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            return rs.next() ? rs.getInt("proximo_id") : 1; // Retorna o próximo ID ou 1 se não houver livros.
         }
-        return 1; // Retorna 1 caso a tabela esteja vazia.
+    }
+
+    private Connection criarConexao() throws SQLException {
+        return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }
