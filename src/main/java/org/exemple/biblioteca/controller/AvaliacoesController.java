@@ -195,12 +195,16 @@ public class AvaliacoesController {
     }
 
     private void showAlert(String title, String message) {
-        // Método para mostrar um alerta de erro
-        Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
-        alert.setTitle(title);
-        alert.setHeaderText("Erro");
-        alert.show();
+        createAlert(Alert.AlertType.ERROR, title, "Erro", message).show();
     }
+
+    private Alert createAlert(Alert.AlertType alertType, String title, String header, String content) {
+        Alert alert = new Alert(alertType, content, ButtonType.OK);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        return alert;
+    }
+
 
     @FXML
     void btnVoltarOnAction(ActionEvent event) {
@@ -209,3 +213,6 @@ public class AvaliacoesController {
         stage.close();
     }
 }
+
+
+
