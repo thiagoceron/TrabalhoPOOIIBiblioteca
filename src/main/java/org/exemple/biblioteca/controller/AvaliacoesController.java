@@ -195,13 +195,21 @@ public class AvaliacoesController {
     }
 
     private void showAlert(String title, String message) {
+        // Cria e exibe um alerta do tipo ERROR com o título e mensagem fornecidos
         createAlert(Alert.AlertType.ERROR, title, "Erro", message).show();
     }
 
     private Alert createAlert(Alert.AlertType alertType, String title, String header, String content) {
+        // Cria um novo alerta com o tipo especificado, conteúdo e botão de confirmação
         Alert alert = new Alert(alertType, content, ButtonType.OK);
+
+        // Define o título do alerta
         alert.setTitle(title);
+
+        // Define o texto do cabeçalho do alerta
         alert.setHeaderText(header);
+
+        // Retorna o alerta criado
         return alert;
     }
 
