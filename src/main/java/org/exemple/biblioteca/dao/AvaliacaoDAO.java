@@ -43,21 +43,29 @@ public class AvaliacaoDAO implements IAvaliacao {
     }
 
     public void deletar(int avaliacaoID) throws SQLException {
+        // Define a instrução SQL para deletar uma avaliação com base no ID fornecido
         final String SQL_DELETE = "DELETE FROM avaliacao WHERE avaliacaoID = ?";
 
+        // Tenta estabelecer uma conexão com o banco de dados e preparar a instrução SQL
         try (Connection conexao = criarConexao(); // Método centralizado para obter conexões.
              PreparedStatement pstmt = conexao.prepareStatement(SQL_DELETE)) {
 
-            pstmt.setInt(1, avaliacaoID); // Configura o parâmetro.
-            int linhasAfetadas = pstmt.executeUpdate(); // Executa a exclusão.
+            // Configura o parâmetro da consulta SQL com o ID da avaliação a ser deletada
+            pstmt.setInt(1, avaliacaoID);
 
+            // Executa a instrução de exclusão e armazena o número de linhas afetadas
+            int linhasAfetadas = pstmt.executeUpdate();
+
+            // Verifica se nenhuma linha foi afetada, indicando que o ID fornecido não corresponde a nenhuma avaliação
             if (linhasAfetadas == 0) {
+                // Lança uma exceção se nenhuma avaliação foi encontrada com o ID fornecido
                 throw new SQLException("Nenhuma avaliação encontrada com o ID fornecido: " + avaliacaoID);
             }
         }
     }
 
     private Connection criarConexao() throws SQLException {
+        // Cria e retorna uma nova conexão com o banco de dados usando as credenciais fornecidas
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 
@@ -76,14 +84,16 @@ public class AvaliacaoDAO implements IAvaliacao {
     }
 
     public int obterProximoAvaliacaoID() throws SQLException {
+        // Define a instrução SQL para obter o próximo ID de avaliação, utilizando COALESCE para lidar com a ausência de registros
         String sql = "SELECT COALESCE(MAX(avaliacaoID), 0) + 1 AS proximo_id FROM avaliacao";
 
-        try (Connection conexao = criarConexao();
-             Statement stmt = conexao.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+        // Tenta estabelecer uma conexão com o banco de dados e executar a consulta
+        try (Connection conexao = criarConexao(); // Método para criar a conexão com o banco de dados
+             Statement stmt = conexao.createStatement(); // Cria um Statement para executar a consulta
+             ResultSet rs = stmt.executeQuery(sql)) { // Executa a consulta e obtém o ResultSet
 
-            return rs.next() ? rs.getInt("proximo_id") : 1; // Retorna o próximo ID ou 1 se não houver avaliações.
+            // Retorna o próximo ID de avaliação, ou 1 se não houver avaliações na tabela
+            return rs.next() ? rs.getInt("proximo_id") : 1;
         }
     }
-
 }
