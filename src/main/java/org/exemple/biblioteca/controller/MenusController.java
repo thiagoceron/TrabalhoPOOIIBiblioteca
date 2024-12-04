@@ -49,20 +49,24 @@ public class MenusController {
     @FXML
     void incluiLivroOnAction(ActionEvent event) {
         // Método acionado ao clicar no item de menu para incluir um livro
+        abrirJanela("/org/exemple/biblioteca/view/IncluiLivro.fxml", "Incluir Livro");
+    }
+    private void abrirJanela(String caminhoFXML, String titulo) {
         try {
-            // Carrega a cena de inclusão de livro
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/exemple/biblioteca/view/IncluiLivro.fxml"));
-            Parent root = loader.load(); // Carrega o layout FXML correspondente
-            Stage newStage = new Stage(); // Cria uma nova janela
-            Scene newScene = new Scene(root); // Cria a cena a partir do layout carregado
-            newStage.setScene(newScene); // Define a cena da nova janela
-            newStage.setTitle("Incluir Livro"); // Define o título da nova janela
-            newStage.setResizable(false); // Define a janela como não redimensionável
-            newStage.show(); // Exibe a nova janela
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(caminhoFXML));
+            Parent root = loader.load();
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root));
+            newStage.setTitle(titulo);
+            newStage.setResizable(false);
+            newStage.show();
         } catch (IOException e) {
-            e.printStackTrace(); // Exibe o erro se a janela não puder ser carregada
+            // Loga o erro com mais contexto
+            System.err.println("Erro ao abrir a janela: " + titulo);
+            e.printStackTrace();
         }
     }
+
 
     @FXML
     void incluiEmprestimoOnAction(ActionEvent event) {
