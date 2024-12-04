@@ -43,13 +43,24 @@ public class AvaliacaoDAO implements IAvaliacao {
     }
 
     public void deletar(int avaliacaoID) throws SQLException {
-        String sql = "DELETE FROM avaliacao WHERE avaliacaoID = ?"; // Query para deletar uma avaliação.
-        try (Connection conexao = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement pstmt = conexao.prepareStatement(sql)) {
-            pstmt.setInt(1, avaliacaoID); // Define o ID da avaliação a ser deletada.
-            pstmt.executeUpdate(); // Executa a exclusão.
+        final String SQL_DELETE = "DELETE FROM avaliacao WHERE avaliacaoID = ?";
+
+        try (Connection conexao = criarConexao(); // Método centralizado para obter conexões.
+             PreparedStatement pstmt = conexao.prepareStatement(SQL_DELETE)) {
+
+            pstmt.setInt(1, avaliacaoID); // Configura o parâmetro.
+            int linhasAfetadas = pstmt.executeUpdate(); // Executa a exclusão.
+
+            if (linhasAfetadas == 0) {
+                throw new SQLException("Nenhuma avaliação encontrada com o ID fornecido: " + avaliacaoID);
+            }
         }
     }
+
+    private Connection criarConexao() throws SQLException {
+        return DriverManager.getConnection(URL, USER, PASSWORD);
+    }
+
 
     @Override
     public void atualizar(Avaliacao avaliacao) throws SQLException {
@@ -65,14 +76,14 @@ public class AvaliacaoDAO implements IAvaliacao {
     }
 
     public int obterProximoAvaliacaoID() throws SQLException {
-        String sql = "SELECT COALESCE(MAX(avaliacaoID), 0) + 1 AS proximo_id FROM avaliacao"; // Query para obter o próximo ID disponível.
-        try (Connection conexao = DriverManager.getConnection(URL, USER, PASSWORD);
+        String sql = "SELECT COALESCE(MAX(avaliacaoID), 0) + 1 AS proximo_id FROM avaliacao";
+
+        try (Connection conexao = criarConexao();
              Statement stmt = conexao.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
-            if (rs.next()) {
-                return rs.getInt("proximo_id"); // Retorna o próximo ID.
-            }
+
+            return rs.next() ? rs.getInt("proximo_id") : 1; // Retorna o próximo ID ou 1 se não houver avaliações.
         }
-        return 1; // Retorna 1 se não houver avaliações.
     }
+
 }
