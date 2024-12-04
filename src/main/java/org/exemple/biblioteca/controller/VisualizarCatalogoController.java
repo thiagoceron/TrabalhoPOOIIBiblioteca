@@ -48,15 +48,28 @@ public class VisualizarCatalogoController {
 
     private void carregarLivros() {
         try {
-            listaLivros.clear(); // Limpa a lista antes de adicionar novos dados
-            List<Livro> livros = livroDAO.buscarTodos(); // Busca todos os livros do banco
-            listaLivros.addAll(livros); // Adiciona os livros na lista observável
-            tabelaLivros.setItems(listaLivros); // Exibe a lista na tabela
+            atualizarListaLivros();
+            exibirLivrosNaTabela();
         } catch (SQLException e) {
-            e.printStackTrace();
-            showAlert("Erro", "Não foi possível carregar os livros."); // Alerta em caso de erro
+            tratarErroCarregamentoLivros(e);
         }
     }
+
+    private void atualizarListaLivros() throws SQLException {
+        listaLivros.clear(); // Limpa a lista antes de adicionar novos dados
+        List<Livro> livros = livroDAO.buscarTodos(); // Busca todos os livros do banco
+        listaLivros.addAll(livros); // Adiciona os livros na lista observável
+    }
+
+    private void exibirLivrosNaTabela() {
+        tabelaLivros.setItems(listaLivros); // Exibe a lista na tabela
+    }
+
+    private void tratarErroCarregamentoLivros(SQLException e) {
+        e.printStackTrace(); // Loga o erro para depuração
+        showAlert("Erro", "Não foi possível carregar os livros."); // Alerta em caso de erro
+    }
+
 
     private void showAlert(String title, String message) {
         // Exibe uma mensagem de alerta
