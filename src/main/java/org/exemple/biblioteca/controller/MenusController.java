@@ -51,18 +51,34 @@ public class MenusController {
         // Método acionado ao clicar no item de menu para incluir um livro
         abrirJanela("/org/exemple/biblioteca/view/IncluiLivro.fxml", "Incluir Livro");
     }
+
     private void abrirJanela(String caminhoFXML, String titulo) {
         try {
+            // Cria um carregador de FXML para carregar a interface gráfica a partir do arquivo especificado
             FXMLLoader loader = new FXMLLoader(getClass().getResource(caminhoFXML));
+
+            // Carrega o conteúdo do arquivo FXML e cria a raiz da cena
             Parent root = loader.load();
+
+            // Cria uma nova janela (Stage) para exibir a interface carregada
             Stage newStage = new Stage();
+
+            // Define a cena da nova janela com o conteúdo carregado
             newStage.setScene(new Scene(root));
+
+            // Define o título da nova janela
             newStage.setTitle(titulo);
+
+            // Impede que a janela seja redimensionada
             newStage.setResizable(false);
+
+            // Exibe a nova janela
             newStage.show();
         } catch (IOException e) {
-            // Loga o erro com mais contexto
+            // Se ocorrer um erro ao tentar abrir a janela, imprime uma mensagem de erro no console
             System.err.println("Erro ao abrir a janela: " + titulo);
+
+            // Imprime a stack trace do erro para ajudar na depuração
             e.printStackTrace();
         }
     }
